@@ -1,0 +1,218 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-display), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-ink: var(--ink);
+  --color-peach: var(--peach);
+  --color-cream: var(--cream);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  color-scheme: light;
+  --peach: #fee7c8;
+  --cream: #fff9f2;
+  --ink: #321b2a;
+  --background: #fee7c8;
+  --foreground: #321b2a;
+  --card: #fff9f2;
+  --card-foreground: #321b2a;
+  --popover: #fff9f2;
+  --popover-foreground: #321b2a;
+  --primary: #ff467a;
+  --primary-foreground: #fff9f2;
+  --secondary: #ff9292;
+  --secondary-foreground: #321b2a;
+  --muted: #f9dcb8;
+  --muted-foreground: #74535c;
+  --accent: #ffd9cf;
+  --accent-foreground: #321b2a;
+  --destructive: #b8403a;
+  --success: #3d7a57;
+  --warning: #a8670c;
+  --border: #ecc9a6;
+  --input: #e6c09c;
+  --ring: #ff467a;
+  --radius: 0.875rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes daam-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes daam-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes daam-dash {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+@keyframes daam-card {
+  0%,
+  100% {
+    transform: perspective(900px) rotateY(-14deg) rotateX(6deg);
+  }
+  50% {
+    transform: perspective(900px) rotateY(14deg) rotateX(-4deg);
+  }
+}
+@keyframes daam-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@keyframes daam-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes daam-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@utility animate-float {
+  animation: daam-float 6s ease-in-out infinite;
+}
+@utility animate-spin-slow {
+  animation: daam-spin 28s linear infinite;
+}
+@utility animate-dash {
+  animation: daam-dash 1.6s linear infinite;
+}
+@utility animate-card-tilt {
+  animation: daam-card 9s ease-in-out infinite;
+}
+@utility animate-ping-soft {
+  animation: daam-ping 1.8s ease-out infinite;
+}
+@utility animate-rise {
+  animation: daam-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@utility animate-scan {
+  animation: daam-scan 2.4s ease-in-out infinite;
+}
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.grain {
+  background-image: radial-gradient(rgba(50, 27, 42, 0.07) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.demo-highlight {
+  position: relative;
+  z-index: 30;
+  box-shadow:
+    0 0 0 3px var(--primary),
+    0 0 0 9px rgba(255, 70, 122, 0.22);
+  border-radius: 14px;
+  transition: box-shadow 0.3s ease;
+}
